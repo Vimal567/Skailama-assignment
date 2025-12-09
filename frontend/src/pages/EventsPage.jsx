@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useStore } from "../store/useStore";
 import CreateEvent from "../components/CreateEvent";
 import EventList from "../components/EventList";
@@ -7,12 +7,16 @@ import EventList from "../components/EventList";
 const API = "https://skailama-assignment-2fse.onrender.com";
 
 export default function EventsPage() {
-  
+
   const [loading, setLoading] = useState(true);
+  const params = useParams();
   const navigate = useNavigate();
+  const routeRole = params.role;
+  const isAdmin = routeRole === "admin";
   const setProfiles = useStore((s) => s.setProfiles);
   const setEvents = useStore((s) => s.setEvents);
   const timezone = useStore((s) => s.timezone);
+  const setRole = useStore((s) => s.setRole);
   const setTimezone = useStore((s) => s.setTimezone);
 
   const fetchEvents = async () => {
@@ -21,9 +25,12 @@ export default function EventsPage() {
     const e = await fetch(`${API}/api/events`).then((r) => r.json());
     setEvents(e);
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
+    if (routeRole) {
+      setRole(routeRole);
+    }
     fetchEvents();
   }, []);
 
@@ -62,9 +69,9 @@ export default function EventsPage() {
 
       <div className="event-grid">
         <aside>
-          <CreateEvent apiBase={API} fetchEvents={fetchEvents} />
+          <CreateEvent apiBase={API} fetchEvents={fetchEvents} isAdmin={isAdmin} />
         </aside>
-          <EventList apiBase={API} />
+        <EventList apiBase={API} />
       </div>
     </div>
   );

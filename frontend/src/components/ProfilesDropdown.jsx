@@ -5,6 +5,7 @@ export default function ProfilesDropdown({
   selectedProfiles,
   setSelectedProfiles,
   onAddProfile,
+  isAdmin = false,
 }) {
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -19,10 +20,10 @@ export default function ProfilesDropdown({
     p.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-    const handleSubmit = () => {
-        setOpen(false);
-        onAddProfile(searchValue);
-    }
+  const handleSubmit = () => {
+    setOpen(false);
+    onAddProfile(searchValue);
+  };
 
   const selectedLabel =
     selectedProfiles.length === 0
@@ -64,9 +65,11 @@ export default function ProfilesDropdown({
             ))}
           </div>
 
-          <div className="pd-add" role="button" onClick={handleSubmit}>
-            + Add Profile
-          </div>
+          {isAdmin ?? (
+            <div className="pd-add" onClick={handleSubmit}>
+              + Add Profile
+            </div>
+          )}
         </div>
       )}
     </div>

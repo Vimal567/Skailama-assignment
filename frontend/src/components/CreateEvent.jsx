@@ -7,7 +7,7 @@ import timezone from "dayjs/plugin/timezone";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export default function CreateEvent({ apiBase, fetchEvents }) {
+export default function CreateEvent({ apiBase, fetchEvents, isAdmin= false }) {
   const profiles = useStore((s) => s.profiles);
   const [selectedProfiles, setSelectedProfiles] = useState([]);
   const [tz, setTz] = useState(
@@ -80,6 +80,7 @@ export default function CreateEvent({ apiBase, fetchEvents }) {
         selectedProfiles={selectedProfiles}
         setSelectedProfiles={setSelectedProfiles}
         onAddProfile={(searchValue) => createProfile(searchValue)}
+        isAdmin={isAdmin}
       />
 
       {/* Timezone */}
