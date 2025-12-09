@@ -208,7 +208,7 @@ button:hover:not(.primary) {
   z-index: 1000;
 }
 
-.pd-search {
+.pd-search, input[type="text"] {
   width: 90%;
   margin: 0 auto 10px auto;
   display: block;

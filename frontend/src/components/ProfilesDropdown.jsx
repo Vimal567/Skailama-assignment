@@ -11,6 +11,7 @@ export default function ProfilesDropdown({
   const [searchValue, setSearchValue] = useState("");
 
   const toggleSelect = (id) => {
+    console.log(isAdmin)
     setSelectedProfiles((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
@@ -65,11 +66,11 @@ export default function ProfilesDropdown({
             ))}
           </div>
 
-          {isAdmin ?? (
+          {isAdmin ? (
             <div className="pd-add" onClick={handleSubmit}>
               + Add Profile
             </div>
-          )}
+          ) : null}
         </div>
       )}
     </div>
