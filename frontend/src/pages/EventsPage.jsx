@@ -4,7 +4,7 @@ import { useStore } from "../store/useStore";
 import CreateEvent from "../components/CreateEvent";
 import EventList from "../components/EventList";
 
-const API = "http://localhost:4000";
+const API = "https://skailama-assignment-2fse.onrender.com";
 
 export default function EventsPage() {
   
